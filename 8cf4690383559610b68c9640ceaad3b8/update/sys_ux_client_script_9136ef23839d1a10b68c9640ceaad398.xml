@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Default">87b1efeb835d1a10b68c9640ceaad376</macroponent>
+        <name>Controller</name>
+        <preset/>
+        <required_translations>[]</required_translations>
+        <script><![CDATA[/**
+ * @param {params} params
+ * @param {api} params.api
+ * @param {any} params.event
+ * @param {any} params.imports
+ * @param {ApiHelpers} params.helpers
+ */
+function handler({
+    api,
+    event,
+    helpers,
+    imports
+}) {
+    helpers.timing.setTimeout(function() {
+        const document = this.document;
+        const window = this;
+        const grid = api.state.grid;
+         const audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+        document.addEventListener('keydown', (event) => {
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+                event.preventDefault(); // Stop default action like scrolling
+            }
+
+            switch (event.key) {
+                case 'ArrowUp':
+                    console.log('Up arrow pressed');
+                    move('up');
+                    break;
+                case 'ArrowDown':
+                    console.log('Down arrow pressed');
+                    move('down');
+                    break;
+                case 'ArrowLeft':
+                    console.log('Left arrow pressed');
+                    move('left');
+                    break;
+                case 'ArrowRight':
+                    console.log('Right arrow pressed');
+                    move('right');
+                    break;
+            }
+        });
+
+        // Function to create a "blip" sound
+        function playBlipSound() {
+            // Create an audio context
+
+           // const audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+
+            // Create an oscillator node
+            const oscillator = audioCtx.createOscillator();
+
+            // Set oscillator type (sine wave for a smooth blip sound)
+            oscillator.type = 'sine'; // Try 'square', 'sawtooth', or 'triangle' for different effects
+
+            // Set frequency for the "blip" (e.g., 440Hz is the A4 note)
+            oscillator.frequency.setValueAtTime(800, audioCtx.currentTime); // 800 Hz gives a nice short blip
+
+            // Create a gain node to control the volume
+            const gainNode = audioCtx.createGain();
+
+            // Connect the oscillator to the gain node, and the gain node to the audio context's output
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            // Set the initial volume
+            gainNode.gain.setValueAtTime(1, audioCtx.currentTime);
+
+            // Quickly decrease the volume to create a short blip
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1); // 0.1 seconds
+
+            // Start the oscillator
+            oscillator.start(audioCtx.currentTime);
+
+            // Stop the oscillator after a short time
+            oscillator.stop(audioCtx.currentTime + 0.1); // Stop after 0.1 seconds
+        }
+
+        // Function to create a "Ta dah!" sound
+        function playTaDahSound() {
+            // Create an audio context
+            //const audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+
+            // Create the first oscillator for the initial "Ta" sound
+            const taOscillator = audioCtx.createOscillator();
+            const taGainNode = audioCtx.createGain();
+
+            // Set oscillator type (sine wave for a smooth tone)
+            taOscillator.type = 'sine';
+            taOscillator.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5 note
+
+            // Connect the oscillator to the gain node, and the gain node to the audio context's output
+            taOscillator.connect(taGainNode);
+            taGainNode.connect(audioCtx.destination);
+
+            // Set the initial volume and decrease quickly for a short "Ta" sound
+            taGainNode.gain.setValueAtTime(1, audioCtx.currentTime);
+            taGainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2); // 0.2 seconds
+
+            // Start the oscillator for the "Ta"
+            taOscillator.start(audioCtx.currentTime);
+            taOscillator.stop(audioCtx.currentTime + 0.2);
+
+            // Create a second oscillator for the "Dah!" sound
+            const dahOscillator = audioCtx.createOscillator();
+            const dahGainNode = audioCtx.createGain();
+
+            // Set oscillator type (sine wave for a smooth tone)
+            dahOscillator.type = 'triangle';
+            dahOscillator.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.25); // E5 note
+
+            // Connect the oscillator to the gain node, and the gain node to the audio context's output
+            dahOscillator.connect(dahGainNode);
+            dahGainNode.connect(audioCtx.destination);
+
+            // Set the initial volume and decrease slowly for a longer "Dah" sound
+            dahGainNode.gain.setValueAtTime(1, audioCtx.currentTime + 0.25);
+            dahGainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1); // 1 second
+
+            // Start the oscillator for the "Dah"
+            dahOscillator.start(audioCtx.currentTime + 0.25);
+            dahOscillator.stop(audioCtx.currentTime + 1);
+
+            
+
+ 
+        }
+
+        function move(direction) {
+            let pos = api.state.position;
+            let grid = api.state.grid;
+            let size = api.state.size;
+            //clear current position
+            grid[pos.x][pos.y].occupied = false;
+
+            switch (direction) {
+                case 'up':
+                    if (pos.x > 0) pos.x -= 1; // Move up if not at the top
+                    break;
+                case 'down':
+                    if (pos.x < size - 1) pos.x += 1; // Move down if not at the bottom
+                    break;
+                case 'left':
+                    if (pos.y > 0) pos.y -= 1; // Move left if not at the left edge
+                    break;
+                case 'right':
+                    if (pos.y < size - 1) pos.y += 1; // Move right if not at the right edge
+                    break;
+            }
+
+            // Set the new position to true
+            let newPos = { ...pos
+            }; // Clone the position object
+
+
+            grid[pos.x][pos.y].occupied = true;
+            grid[pos.x][pos.y].visited = true;
+            
+
+            checkGrid(pos.x, pos.y);
+
+            api.setState('position', {
+                x: pos.x,
+                y: pos.y
+            });
+
+
+            // Write it to the client state 
+            let newGrid = [...grid]; // Clone the grid
+            api.setState('grid', newGrid);
+            playBlipSound();
+
+            // Optional: Log the new position for debugging
+            console.log(`Moved ${direction}. New position: (${pos.x}, ${pos.y})`);
+        }
+
+        //check where we are in the grid and react based on items in the room.
+        function checkGrid(x, y) {
+           // console.log(grid[x][y]);
+            const room = grid[x][y]; // this is the coordinate "room" we are in
+            if (room.item) { //do the following if there is an item in this room
+                playTaDahSound(); // Ta-dah!
+                updateScore(room.item, api.state.score); // add a score
+                
+                 api.setState("destination",room.item);
+                // Update the found notes
+                updateNotes(room.item);
+
+                //is this a reference (a door)
+                if (room.item.type=="reference") {
+                    //openDoorModal(room.item);
+                }
+                
+            }
+            //set the room description
+                setFlavourText(room.item);
+
+        }
+
+        function updateNotes(item) {
+            let notes = api.state.playerNotes;
+     if (!notes.includes(item)) {
+        notes.unshift(item); // Adds the item to the beginning of the array
+    }
+            api.setState("playerNotes", notes);
+            const notesContainer = document.getElementById('item-container_playerNotes');
+            notesContainer.scrollTop = notesContainer.scrollHeight;
+
+        }
+        
+
+        function openDoorModal(item) {
+            console.log(item);
+            console.log(api.state.destination);
+            helpers.modal.open("[component-id$='confirm_door']");
+            
+        }
+
+        function setFlavourText(item) {
+            if (item.description) {
+                api.setState("flavourText",item.description);
+            } else {
+                let emptyText = api.state.emptyRooms;
+               api.setState("flavourText",emptyText[Math.floor(Math.random() * emptyText.length)]); 
+            }
+        }
+
+        function updateScore(item, currentScore) {
+             
+            let points = item.type == "reference" ? 2000 : 1000;
+            console.log("p-"+points);
+            let total = currentScore + points;
+            console.log("t-"+total);
+            api.setState("score",total);
+             
+        }
+    });
+
+}
+
+
+]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>matt@pamtconsulting.com</sys_created_by>
+        <sys_created_on>2024-10-23 17:45:54</sys_created_on>
+        <sys_id>9136ef23839d1a10b68c9640ceaad398</sys_id>
+        <sys_mod_count>104</sys_mod_count>
+        <sys_name>Controller</sys_name>
+        <sys_package display_value="Drama" source="x_pamtn_drama">8cf4690383559610b68c9640ceaad3b8</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Drama">8cf4690383559610b68c9640ceaad3b8</sys_scope>
+        <sys_update_name>sys_ux_client_script_9136ef23839d1a10b68c9640ceaad398</sys_update_name>
+        <sys_updated_by>matt@pamtconsulting.com</sys_updated_by>
+        <sys_updated_on>2024-11-24 20:05:00</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

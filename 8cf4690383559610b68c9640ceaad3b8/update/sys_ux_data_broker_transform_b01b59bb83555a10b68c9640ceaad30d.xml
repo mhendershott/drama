@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_data_broker_transform">
+    <sys_ux_data_broker_transform action="INSERT_OR_UPDATE">
+        <acl_failure_result/>
+        <api_name>x_pamtn_drama.Get not null fields</api_name>
+        <batch_exclude>false</batch_exclude>
+        <description/>
+        <mutates_server_data>false</mutates_server_data>
+        <name>Get not null fields</name>
+        <output_schema/>
+        <private>false</private>
+        <props>[&#13;
+{&#13;
+"name":"table",&#13;
+"label":"The Table",&#13;
+"fieldType":"string",&#13;
+"mandatory":"true",&#13;
+"readOnly":"false"&#13;
+},&#13;
+{&#13;
+"name":"sysId",&#13;
+"label":"The SysId",&#13;
+"fieldType":"string",&#13;
+"mandatory":"true",&#13;
+"readOnly":"false"&#13;
+}&#13;
+&#13;
+&#13;
+]</props>
+        <required_translations>[ {
+  "message" : "The SysId",
+  "comment" : ""
+}, {
+  "message" : "The Table",
+  "comment" : ""
+} ]</required_translations>
+        <schema_version>1.0.0</schema_version>
+        <script><![CDATA[function transform(input) {
+	let table=input.table;
+	let sysId=input.sysId;
+
+const dungeonDoorText = [
+  "A heavy wooden door stands at the far end, its surface marked with deep claw marks.",
+  "You spot a trapdoor slightly ajar, as if recently used, dust barely settled around its edges.",
+  "An ornate archway frames a dark portal, strange symbols glowing faintly around its perimeter.",
+  "There's a rusted iron gate, half off its hinges, groaning quietly as it sways in the draft.",
+  "A stone door blends almost seamlessly into the wall, except for a small indentation near its base.",
+  "You notice a door covered in thick vines, as if nature itself tried to seal whatever lies beyond.",
+  "A narrow passageway is blocked by a hatch, with several runes engraved on its face.",
+  "A shadowy figure seems to linger near a doorway, but vanishes when you approach.",
+  "You find a concealed door, partially hidden by a tapestry depicting a grim scene of battle.",
+  "A circular door with brass fittings is inlaid into the ground, its handle glinting in the dim light.",
+  "An ominous black portal pulses slowly, whispering strange, unintelligible words as you near it.",
+  "There's a small wooden door with a peculiar symbol scratched onto it, almost like a warning.",
+  "A large metal door stands closed, its surface etched with symbols of protection and binding.",
+  "You come across a grated trapdoor in the corner, with faint echoes of dripping water below.",
+  "A narrow archway leads to a shimmering doorway, as if a veil separates two different worlds."
+];
+
+const dungeonFlavourText = [
+  "You found a crumbling note tucked under a loose stone. Its edges are frayed with age.",
+  "There's a message scrawled in the dirt, hurriedly written with shaky hands.",
+  "You notice some faded writing on the wall, barely visible in the dim torchlight.",
+  "A piece of parchment is stuck to the floor, weighted down by a small rock.",
+  "There are words etched into the wooden beam, worn and splintered from years of neglect.",
+  "A series of symbols is carved into the wall, cryptic and partially erased.",
+  "Someone etched a warning into the stone floor. It's almost lost beneath a layer of grime.",
+  "A torn scrap of cloth has a few lines of text written in what looks like dried blood.",
+  "You see a shaky message written in coal along the edge of an ancient doorway.",
+  "A faint, nearly invisible scrawl is on the ceiling, as if someone wrote it from their last breath.",
+  "There is a note, pinned to the wall by a rusted dagger, its paper yellowed and brittle.",
+  "A few words are scratched into a metal plate, barely legible through the tarnish.",
+  "You uncover a small leather-bound scrapbook, its fragile pages filled with fragmented sentences.",
+  "Smeared writing trails along the floor, as if someone was dragged while scribbling.",
+  "A dusty mirror reflects a phrase that seems to be written backwards, almost hidden."
+];
+
+
+	function getNonNullFieldsInRecord(tableName, sysId) {
+    var grRecord = new GlideRecord(tableName);
+    if (!grRecord.get(sysId)) {
+        return { error: "Record not found" };
+    }
+
+    var nonNullFields = {};
+
+    // Retrieve all field elements
+    var elements = grRecord.getElements();
+
+    // Use a for..of loop to iterate through the elements
+    for (var field of elements) {
+        var fieldName = field.getName();
+        var value = grRecord.getValue(fieldName);
+
+        // Include only non-null and non-empty fields
+        if (value !== null && value !== "") {
+            nonNullFields[fieldName] = {
+                displayName: field.getLabel(),
+                displayValue: grRecord.getDisplayValue(fieldName),
+                type: field.getED().getInternalType(),
+                description: dungeonFlavourText[Math.floor(Math.random() * dungeonFlavourText.length)]
+
+            };
+			if (nonNullFields[fieldName].type == "reference") {
+				nonNullFields[fieldName].sys_id = grRecord.getValue(fieldName);
+				nonNullFields[fieldName].table = field.getReferenceTable();
+nonNullFields[fieldName].description= dungeonDoorText[Math.floor(Math.random() * dungeonDoorText.length)];
+			}
+        }
+    }
+
+    return nonNullFields;
+}
+
+return getNonNullFieldsInRecord(table, sysId);
+
+}
+
+]]></script>
+        <sys_class_name>sys_ux_data_broker_transform</sys_class_name>
+        <sys_created_by>matt@pamtconsulting.com</sys_created_by>
+        <sys_created_on>2024-10-24 02:14:37</sys_created_on>
+        <sys_id>b01b59bb83555a10b68c9640ceaad30d</sys_id>
+        <sys_mod_count>10</sys_mod_count>
+        <sys_name>Get not null fields</sys_name>
+        <sys_package display_value="Drama" source="x_pamtn_drama">8cf4690383559610b68c9640ceaad3b8</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Drama">8cf4690383559610b68c9640ceaad3b8</sys_scope>
+        <sys_update_name>sys_ux_data_broker_transform_b01b59bb83555a10b68c9640ceaad30d</sys_update_name>
+        <sys_updated_by>matt@pamtconsulting.com</sys_updated_by>
+        <sys_updated_on>2024-11-24 17:00:40</sys_updated_on>
+    </sys_ux_data_broker_transform>
+    <sys_translated_text action="delete_multiple" query="documentkey=b01b59bb83555a10b68c9640ceaad30d"/>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>b01b59bb83555a10b68c9640ceaad30d</id>
+        <sys_created_by>matt@pamtconsulting.com</sys_created_by>
+        <sys_created_on>2024-11-24 11:35:08</sys_created_on>
+        <sys_id>a925c7314706161098481845f16d439f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>matt@pamtconsulting.com</sys_updated_by>
+        <sys_updated_on>2024-11-24 11:35:08</sys_updated_on>
+        <table>sys_ux_data_broker_transform</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>

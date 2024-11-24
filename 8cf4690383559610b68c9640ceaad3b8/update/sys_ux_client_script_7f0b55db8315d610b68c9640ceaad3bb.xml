@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Weighted">e30b55db8315d610b68c9640ceaad3b5</macroponent>
+        <name>MakeItDramatic</name>
+        <preset/>
+        <required_translations>[
+    
+]</required_translations>
+        <script><![CDATA[/**
+ * @param {params} params
+ * @param {api} params.api
+ * @param {any} params.event
+ * @param {any} params.imports
+ * @param {ApiHelpers} params.helpers
+ */
+function handler({
+    api,
+    event,
+    helpers,
+    imports
+}) {
+
+
+       if (api.state.isRunning) {
+        console.warn("Script is already running, skipping execution.");
+        return;
+    }
+
+        api.setState('isRunning', true);
+    //wrapping everything in this to get the "window" context, which is equivalent to "this" in this context.
+    //It's a sketchy workaround.
+    helpers.timing.setTimeout(function() {
+
+        let loops = api.state.loops;
+        let delay = api.state.delay;
+        let last = 0;
+        let notehold = 100;
+        let intervalId = helpers.timing.setInterval(theDrama, delay);
+
+        // Create an audio context
+        const audioContext = new(this.AudioContext || this.webkitAudioContext)();
+
+
+        function theDrama() {
+            let myEntries = JSON.parse(JSON.stringify(api.state.entries));
+
+            // set a random value to true
+            let rand = parseInt(Math.floor(Math.random() * myEntries.length));
+            last = rand;
+
+            myEntries[last].selected = false; // Clear the last selected
+            myEntries[rand].selected = true; // select a new random item.
+
+            //set new value to client state to trigger update.
+            api.setState('entries', myEntries);
+            playBeep(1200, notehold);
+            notehold = notehold + 10;
+            loops--;
+
+            //Stop after loops expired
+            if (loops < 1) {
+                myEntries[last].selected = false; 
+                myEntries[rand].selected = true; 
+                myEntries[rand].winner = true;
+                api.setState('entries', myEntries);
+    playFanfare();
+                helpers.timing.clearInterval(intervalId);
+                     api.setState('isRunning', false); // Reset the running state
+            }
+         
+        }
+
+        // Function to generate a beep sound with adjustable frequency and duration
+        function playBeep(frequency = 800, duration = 100) {
+
+            const oscillator = audioContext.createOscillator(); // Create an oscillator node
+            const gainNode = audioContext.createGain(); // Create a gain node to control volume
+
+            // Set up oscillator properties
+            oscillator.type = 'square'; // Square wave works well for beep sounds
+            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+
+            // Connect nodes: oscillator -> gain -> destination (speakers)
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            // Control the volume: start loud and fade out quickly
+            gainNode.gain.setValueAtTime(1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration / 1000);
+
+            // Start and stop the beep sound
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + duration / 1000);
+
+        }
+
+
+        function playFanfare() {
+
+ 
+    // First part: Quick rising tones
+    createOscillator(523.25, 0, 0.15, "square"); // C5
+    createOscillator(659.25, 0.15, 0.15, "square"); // E5
+    createOscillator(783.99, 0.3, 0.15, "square"); // G5
+
+    // Second part: Climactic high notes
+    createOscillator(880, 0.5, 0.2, "sawtooth"); // A5
+    createOscillator(1046.5, 0.7, 0.2, "sawtooth"); // C6
+
+    // Final part: Resolving downward flourish
+    createOscillator(783.99, 1, 0.15, "triangle"); // G5
+    createOscillator(659.25, 1.15, 0.15, "triangle"); // E5
+    createOscillator(523.25, 1.3, 0.4, "triangle"); // C5
+    
+        }
+
+        function createOscillator(frequency, startTime, duration, type = "sine") {
+            const oscillator = audioContext.createOscillator();
+            oscillator.type = type;
+            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime + startTime);
+            oscillator.connect(audioContext.destination);
+            oscillator.start(audioContext.currentTime + startTime);
+            oscillator.stop(audioContext.currentTime + startTime + duration/2);
+        }
+
+    });
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>matt@pamtconsulting.com</sys_created_by>
+        <sys_created_on>2024-10-22 12:55:25</sys_created_on>
+        <sys_id>7f0b55db8315d610b68c9640ceaad3bb</sys_id>
+        <sys_mod_count>33</sys_mod_count>
+        <sys_name>MakeItDramatic</sys_name>
+        <sys_package display_value="Drama" source="x_pamtn_drama">8cf4690383559610b68c9640ceaad3b8</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Drama">8cf4690383559610b68c9640ceaad3b8</sys_scope>
+        <sys_update_name>sys_ux_client_script_7f0b55db8315d610b68c9640ceaad3bb</sys_update_name>
+        <sys_updated_by>matt@pamtconsulting.com</sys_updated_by>
+        <sys_updated_on>2024-10-23 00:08:39</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>
