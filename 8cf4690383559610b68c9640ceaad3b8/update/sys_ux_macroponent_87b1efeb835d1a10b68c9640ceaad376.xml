@@ -53,11 +53,11 @@
                                     },
                                     "css": {
                                         "type": "JSON_LITERAL",
-                                        "value": "* { margin: 2px; }"
+                                        "value": "* { margin: 2px; \r\nfont-family: Oxanium;\r\nfont-size: larger;\r\n\r\n-webkit-font-smoothing: antialiased; \r\n}"
                                     },
                                     "tag": {
                                         "type": "JSON_LITERAL",
-                                        "value": "pre"
+                                        "value": "div"
                                     },
                                     "text": {
                                         "type": "TRANSLATION_LITERAL",
@@ -91,7 +91,7 @@
                                     },
                                     "css": {
                                         "type": "JSON_LITERAL",
-                                        "value": "* { font-size: 4em;\r\nfont-family: jersey10;\r\ncolor: yellowgreen;}"
+                                        "value": "* { font-size: 3em;\r\nfont-family: Oxanium;\r\ncolor: yellowgreen;}"
                                     },
                                     "tag": {
                                         "type": "JSON_LITERAL",
@@ -290,7 +290,7 @@
                                                             },
                                                             "css": {
                                                                 "type": "JSON_LITERAL",
-                                                                "value": "* { font-size: 2em;\r\nfont-family: 'Jersey10';\r\n}"
+                                                                "value": "* { font-size: 2em;\r\nfont-family: 'Oxanium';\r\npadding: 2%;\r\n\r\n}"
                                                             },
                                                             "tag": {
                                                                 "type": "JSON_LITERAL",
@@ -316,8 +316,9 @@
                                                             {
                                                                 "element_id": "stylized_text_room_description",
                                                                 "styles": {
-                                                                    "height": "5em",
-                                                                    "min-height": "5em",
+                                                                    "height": "6em",
+                                                                    "line-height": "1",
+                                                                    "min-height": "6em",
                                                                     "padding-left": "var(--now-scalable-space--xl)"
                                                                 }
                                                             }
@@ -419,8 +420,8 @@
                                                                                     "id": "33eaddad37cf901283bbdc7a574773b9",
                                                                                     "type": "MACROPONENT"
                                                                                 },
-                                                                                "elementId": "icon_1",
-                                                                                "elementLabel": "Icon 1",
+                                                                                "elementId": "icon_room",
+                                                                                "elementLabel": "Room Icon",
                                                                                 "eventMappings": [],
                                                                                 "isHidden": {
                                                                                     "type": "JSON_LITERAL",
@@ -460,8 +461,10 @@
                                                                                 "children": null,
                                                                                 "items": [
                                                                                     {
-                                                                                        "element_id": "icon_1",
-                                                                                        "styles": {}
+                                                                                        "element_id": "icon_room",
+                                                                                        "styles": {
+                                                                                            "color": "#FFBF00"
+                                                                                        }
                                                                                     }
                                                                                 ],
                                                                                 "root": null,
@@ -581,6 +584,8 @@
                                                         "border-radius": "var(--now-static-border-radius--lg)",
                                                         "border-style": "solid",
                                                         "border-width": "var(--now-static-space--xxs)",
+                                                        "height": "15vh",
+                                                        "margin-bottom": "var(--now-scalable-space--md)",
                                                         "width": "100%"
                                                     }
                                                 },
@@ -675,7 +680,7 @@
                                                 },
                                                 "css": {
                                                     "type": "JSON_LITERAL",
-                                                    "value": "* { margin: 0px; \r\nfont-size:3em;\r\nfont-family: 'Jersey10';\r\n}"
+                                                    "value": "* { margin: 0px; \r\nfont-size:3em;\r\nfont-family: 'Oxanium';\r\n}"
                                                 },
                                                 "tag": {
                                                     "type": "JSON_LITERAL",
@@ -777,7 +782,7 @@
                                                                         },
                                                                         "size": {
                                                                             "type": "JSON_LITERAL",
-                                                                            "value": "lg"
+                                                                            "value": "md"
                                                                         },
                                                                         "tooltipContent": {
                                                                             "type": "TRANSLATION_LITERAL",
@@ -815,7 +820,7 @@
                                                                         },
                                                                         "css": {
                                                                             "type": "JSON_LITERAL",
-                                                                            "value": "* { margin-bottom: 2px;\r\nmargin-top: 2px;\r\nfont-family: Jersey10;\r\nfont-size: 3em;\r\n}"
+                                                                            "value": "* { margin-bottom: 2px;\r\nmargin-top: 2px;\r\nmargin-right: 10px;\r\nfont-family: Oxanium;\r\nfont-size: 2em;\r\nflex: 1;\r\n}"
                                                                         },
                                                                         "tag": {
                                                                             "type": "JSON_LITERAL",
@@ -854,7 +859,7 @@
                                                                         },
                                                                         "css": {
                                                                             "type": "JSON_LITERAL",
-                                                                            "value": "* { margin-bottom: 2px;\r\nmargin-top: 2px;\r\nfont-family: Jersey10;\r\nfont-size: 2em;\r\n}"
+                                                                            "value": "* { margin-bottom: 2px;\r\nmargin-top: 2px;\r\nfont-family: Oxanium;\r\nfont-size: 1.5em;\r\nword-wrap: normal;\r\nheight: auto;\r\nflex: 2;\r\n}"
                                                                         },
                                                                         "tag": {
                                                                             "type": "JSON_LITERAL",
@@ -899,13 +904,17 @@
                                                                     "rules": null,
                                                                     "styles": {
                                                                         "align-items": "center",
-                                                                        "display": "flex",
-                                                                        "flex-direction": "row",
-                                                                        "gap": "var(--now-scalable-space--xl)",
+                                                                        "display": "grid",
+                                                                        "gap": "var(--now-scalable-space--xs)",
+                                                                        "grid-auto-columns": "1fr",
+                                                                        "grid-auto-flow": "row",
+                                                                        "grid-auto-rows": "1fr",
+                                                                        "grid-template-columns": "1fr 3fr 4fr",
+                                                                        "grid-template-rows": "1fr",
                                                                         "width": "100%"
                                                                     },
                                                                     "templateId": "5832fd4d53c31010e6bcddeeff7b12db",
-                                                                    "type": "flex"
+                                                                    "type": "grid"
                                                                 },
                                                                 "version": "3.0.0"
                                                             }
@@ -1039,10 +1048,12 @@
                                     {
                                         "element_id": "grid_container_game_grid",
                                         "styles": {
+                                            "background": "rgb(var(--now-color--neutral-21))",
                                             "border-color": "RGB(var(--now-color--neutral-5))",
                                             "border-radius": "var(--now-static-border-radius--lg)",
                                             "border-style": "solid",
                                             "border-width": "var(--now-static-space--xxs)",
+                                            "height": "80vh",
                                             "width": "100%"
                                         }
                                     },
@@ -1054,7 +1065,7 @@
                                             "border-radius": "var(--now-static-border-radius--lg)",
                                             "border-style": "solid",
                                             "border-width": "var(--now-static-space--xxs)",
-                                            "height": "75vh",
+                                            "height": "80vh",
                                             "min-height": "100%",
                                             "overflow-y": "auto",
                                             "width": "100%"
@@ -1851,29 +1862,6 @@
         {
             "broker": null,
             "clientScript": null,
-            "conditional": null,
-            "declarativeAction": null,
-            "event": {
-                "apiName": "sn_uxf.MACROPONENT_VIEWPORT_LOAD_REQUESTED",
-                "payload": {
-                    "script": {
-                        "apiVersion": "1.0.0",
-                        "controllerElementId": null,
-                        "inlineScript": "/**\n* @param {params} params\n* @param {api} params.api\n* @param {any} params.event\n*/\nfunction evaluateEvent({api, event}) {\n\treturn {\n\t\tviewportElementId: 'viewport_1',\n\t\troute: 'record',\n\t\tfields: null,\n\t\tparams: {table: 'incident',\n\t\tsysId: '552c48888c033300964f4932b03eb092'}\n\t};\n}",
-                        "scriptSysId": null,
-                        "target": null
-                    },
-                    "type": "CLIENT_TRANSFORM_SCRIPT"
-                },
-                "sysId": "f49aa75023071010b1e3c50947bf65de"
-            },
-            "operation": null,
-            "targetId": "cmccmcbbdhhkaabbgiiddffhhurddddrdavx",
-            "type": "EVENT"
-        },
-        {
-            "broker": null,
-            "clientScript": null,
             "conditional": {
                 "transform": {
                     "operands": {
@@ -1928,6 +1916,7 @@
                 "element_id": "container_1",
                 "styles": {
                     "align-self": "center",
+                    "font-family": "inherit",
                     "min-width": "85%",
                     "width": "90%"
                 }
@@ -1939,6 +1928,7 @@
             "background": "rgb(var(--now-color--neutral-21))",
             "display": "flex",
             "flex-direction": "column",
+            "font-family": "Jersey10",
             "height": "100vh",
             "width": "100%"
         },
@@ -2131,15 +2121,15 @@
         "valueType": "json"
     },
     {
-        "fieldType": "number",
+        "fieldType": "string",
         "id": "Zdo8C47pzCkCr9kAJ47jDBA5N4",
         "initialValue": {
             "type": "JSON_LITERAL",
-            "value": 27
+            "value": "0"
         },
         "name": "score",
         "shape": "",
-        "valueType": "number"
+        "valueType": "string"
     },
     {
         "fieldType": "number",
@@ -2151,19 +2141,30 @@
         "name": "maxScore",
         "shape": "",
         "valueType": "number"
+    },
+    {
+        "fieldType": "number",
+        "id": "ePu3JfjBDkT299MOOhLxZpvD",
+        "initialValue": {
+            "type": "JSON_LITERAL",
+            "value": 0
+        },
+        "name": "totalPoints",
+        "shape": "",
+        "valueType": "number"
     }
 ]</state_properties>
         <sys_class_name>sys_ux_macroponent</sys_class_name>
         <sys_created_by>matt@pamtconsulting.com</sys_created_by>
         <sys_created_on>2024-10-23 17:22:19</sys_created_on>
         <sys_id>87b1efeb835d1a10b68c9640ceaad376</sys_id>
-        <sys_mod_count>182</sys_mod_count>
+        <sys_mod_count>234</sys_mod_count>
         <sys_name>Default</sys_name>
         <sys_package display_value="Drama" source="x_pamtn_drama">8cf4690383559610b68c9640ceaad3b8</sys_package>
         <sys_policy/>
         <sys_scope display_value="Drama">8cf4690383559610b68c9640ceaad3b8</sys_scope>
         <sys_update_name>sys_ux_macroponent_87b1efeb835d1a10b68c9640ceaad376</sys_update_name>
         <sys_updated_by>matt@pamtconsulting.com</sys_updated_by>
-        <sys_updated_on>2024-11-24 20:01:19</sys_updated_on>
+        <sys_updated_on>2024-11-25 01:09:07</sys_updated_on>
     </sys_ux_macroponent>
 </record_update>

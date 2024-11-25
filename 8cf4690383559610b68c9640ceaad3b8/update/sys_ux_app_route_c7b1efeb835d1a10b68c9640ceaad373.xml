@@ -8,7 +8,7 @@
         <name>Grid Thing</name>
         <optional_parameters>firstLoad</optional_parameters>
         <order>0</order>
-        <parent_macroponent display_value="Drama Portal App Shell">daea70ca478a161098481845f16d4301</parent_macroponent>
+        <parent_macroponent display_value="Portal App Shell">b66bf1075b31101016fd7c1bf481c7a7</parent_macroponent>
         <parent_macroponent_composition_element_id/>
         <route_type>grid-thing</route_type>
         <screen_type display_value="Grid Thing">83b1efeb835d1a10b68c9640ceaad370</screen_type>
@@ -16,14 +16,14 @@
         <sys_created_by>matt@pamtconsulting.com</sys_created_by>
         <sys_created_on>2024-10-23 17:22:19</sys_created_on>
         <sys_id>c7b1efeb835d1a10b68c9640ceaad373</sys_id>
-        <sys_mod_count>7</sys_mod_count>
+        <sys_mod_count>8</sys_mod_count>
         <sys_name>Grid Thing</sys_name>
         <sys_package display_value="Drama" source="x_pamtn_drama">8cf4690383559610b68c9640ceaad3b8</sys_package>
         <sys_policy/>
         <sys_scope display_value="Drama">8cf4690383559610b68c9640ceaad3b8</sys_scope>
         <sys_update_name>sys_ux_app_route_c7b1efeb835d1a10b68c9640ceaad373</sys_update_name>
         <sys_updated_by>matt@pamtconsulting.com</sys_updated_by>
-        <sys_updated_on>2024-11-24 20:28:48</sys_updated_on>
+        <sys_updated_on>2024-11-24 20:50:48</sys_updated_on>
     </sys_ux_app_route>
     <sys_translated_text action="delete_multiple" query="documentkey=c7b1efeb835d1a10b68c9640ceaad373"/>
 </record_update>

@@ -7,28 +7,29 @@
         <preset/>
         <required_translations>[]</required_translations>
         <script><![CDATA[/**
- * @param {params} params
- * @param {api} params.api
- * @param {any} params.event
- * @param {any} params.imports
- * @param {ApiHelpers} params.helpers
+ * Handles key events and movement, along with playing sound effects and updating game state.
+ * 
+ * @param {Object} params - Object containing event data and helper functions.
+ * @param {Object} params.api - API object for managing game state.
+ * @param {Object} params.event - Event object (unused in this function).
+ * @param {Object} params.helpers - Helper functions for timing and other operations.
+ * @param {Object} params.imports - Imported resources (unused in this function).
  */
-function handler({
-    api,
-    event,
-    helpers,
-    imports
-}) {
+function handler({ api, event, helpers, imports }) {
+    // Delay execution of the handler using a setTimeout function to simulate event-driven environment.
     helpers.timing.setTimeout(function() {
         const document = this.document;
         const window = this;
         const grid = api.state.grid;
-         const audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)(); // Shared audio context for all sound effects
+
+        // Keydown event listener to handle directional movement.
         document.addEventListener('keydown', (event) => {
             if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
-                event.preventDefault(); // Stop default action like scrolling
+                event.preventDefault(); // Prevent default scrolling behavior for arrow keys.
             }
 
+            // Move based on the arrow key pressed.
             switch (event.key) {
                 case 'ArrowUp':
                     console.log('Up arrow pressed');
@@ -49,218 +50,163 @@ function handler({
             }
         });
 
-        // Function to create a "blip" sound
+        /**
+         * Function to play a short "blip" sound when moving.
+         */
         function playBlipSound() {
-            // Create an audio context
-
-           // const audioCtx = new(window.AudioContext || window.webkitAudioContext)();
-
-            // Create an oscillator node
             const oscillator = audioCtx.createOscillator();
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(800, audioCtx.currentTime); // Frequency set to 800 Hz for the blip sound.
 
-            // Set oscillator type (sine wave for a smooth blip sound)
-            oscillator.type = 'sine'; // Try 'square', 'sawtooth', or 'triangle' for different effects
-
-            // Set frequency for the "blip" (e.g., 440Hz is the A4 note)
-            oscillator.frequency.setValueAtTime(800, audioCtx.currentTime); // 800 Hz gives a nice short blip
-
-            // Create a gain node to control the volume
             const gainNode = audioCtx.createGain();
-
-            // Connect the oscillator to the gain node, and the gain node to the audio context's output
             oscillator.connect(gainNode);
             gainNode.connect(audioCtx.destination);
 
-            // Set the initial volume
             gainNode.gain.setValueAtTime(1, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1); // Volume ramp down for 0.1 seconds.
 
-            // Quickly decrease the volume to create a short blip
-            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1); // 0.1 seconds
-
-            // Start the oscillator
             oscillator.start(audioCtx.currentTime);
-
-            // Stop the oscillator after a short time
-            oscillator.stop(audioCtx.currentTime + 0.1); // Stop after 0.1 seconds
+            oscillator.stop(audioCtx.currentTime + 0.1); // Stop after 0.1 seconds.
         }
 
-        // Function to create a "Ta dah!" sound
+        /**
+         * Function to play a "Ta-Dah!" sound when an item is found.
+         */
         function playTaDahSound() {
-            // Create an audio context
-            //const audioCtx = new(window.AudioContext || window.webkitAudioContext)();
-
-            // Create the first oscillator for the initial "Ta" sound
+            // "Ta" part of the sound.
             const taOscillator = audioCtx.createOscillator();
             const taGainNode = audioCtx.createGain();
-
-            // Set oscillator type (sine wave for a smooth tone)
             taOscillator.type = 'sine';
-            taOscillator.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5 note
-
-            // Connect the oscillator to the gain node, and the gain node to the audio context's output
+            taOscillator.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5 note.
             taOscillator.connect(taGainNode);
             taGainNode.connect(audioCtx.destination);
-
-            // Set the initial volume and decrease quickly for a short "Ta" sound
             taGainNode.gain.setValueAtTime(1, audioCtx.currentTime);
-            taGainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2); // 0.2 seconds
-
-            // Start the oscillator for the "Ta"
+            taGainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
             taOscillator.start(audioCtx.currentTime);
             taOscillator.stop(audioCtx.currentTime + 0.2);
 
-            // Create a second oscillator for the "Dah!" sound
+            // "Dah!" part of the sound.
             const dahOscillator = audioCtx.createOscillator();
             const dahGainNode = audioCtx.createGain();
-
-            // Set oscillator type (sine wave for a smooth tone)
             dahOscillator.type = 'triangle';
-            dahOscillator.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.25); // E5 note
-
-            // Connect the oscillator to the gain node, and the gain node to the audio context's output
+            dahOscillator.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.25); // E5 note.
             dahOscillator.connect(dahGainNode);
             dahGainNode.connect(audioCtx.destination);
-
-            // Set the initial volume and decrease slowly for a longer "Dah" sound
             dahGainNode.gain.setValueAtTime(1, audioCtx.currentTime + 0.25);
-            dahGainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1); // 1 second
-
-            // Start the oscillator for the "Dah"
+            dahGainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1);
             dahOscillator.start(audioCtx.currentTime + 0.25);
             dahOscillator.stop(audioCtx.currentTime + 1);
-
-            
-
- 
         }
 
+        /**
+         * Function to handle movement based on direction.
+         * @param {string} direction - Direction to move ('up', 'down', 'left', 'right').
+         */
         function move(direction) {
             let pos = api.state.position;
             let grid = api.state.grid;
             let size = api.state.size;
-            //clear current position
+
+            // Clear current position.
             grid[pos.x][pos.y].occupied = false;
 
+            // Update position based on direction.
             switch (direction) {
                 case 'up':
-                    if (pos.x > 0) pos.x -= 1; // Move up if not at the top
+                    if (pos.x > 0) pos.x -= 1;
                     break;
                 case 'down':
-                    if (pos.x < size - 1) pos.x += 1; // Move down if not at the bottom
+                    if (pos.x < size - 1) pos.x += 1;
                     break;
                 case 'left':
-                    if (pos.y > 0) pos.y -= 1; // Move left if not at the left edge
+                    if (pos.y > 0) pos.y -= 1;
                     break;
                 case 'right':
-                    if (pos.y < size - 1) pos.y += 1; // Move right if not at the right edge
+                    if (pos.y < size - 1) pos.y += 1;
                     break;
             }
 
-            // Set the new position to true
-            let newPos = { ...pos
-            }; // Clone the position object
-
-
+            // Set new position.
             grid[pos.x][pos.y].occupied = true;
             grid[pos.x][pos.y].visited = true;
-            
-
             checkGrid(pos.x, pos.y);
 
-            api.setState('position', {
-                x: pos.x,
-                y: pos.y
-            });
+            api.setState('position', { x: pos.x, y: pos.y });
+            api.setState('grid', [...grid]); // Update grid state.
+            playBlipSound(); // Play movement sound.
 
-
-            // Write it to the client state 
-            let newGrid = [...grid]; // Clone the grid
-            api.setState('grid', newGrid);
-            playBlipSound();
-
-            // Optional: Log the new position for debugging
-            console.log(`Moved ${direction}. New position: (${pos.x}, ${pos.y})`);
+            console.log(`Moved ${direction}. New position: (${pos.x}, ${pos.y})`); // Debug log.
         }
 
-        //check where we are in the grid and react based on items in the room.
+        /**
+         * Function to check the current grid position and handle items.
+         * @param {number} x - X coordinate of the grid.
+         * @param {number} y - Y coordinate of the grid.
+         */
         function checkGrid(x, y) {
-           // console.log(grid[x][y]);
-            const room = grid[x][y]; // this is the coordinate "room" we are in
-            if (room.item) { //do the following if there is an item in this room
-                playTaDahSound(); // Ta-dah!
-                updateScore(room.item, api.state.score); // add a score
-                
-                 api.setState("destination",room.item);
-                // Update the found notes
-                updateNotes(room.item);
-
-                //is this a reference (a door)
-                if (room.item.type=="reference") {
-                    //openDoorModal(room.item);
-                }
-                
+            const room = grid[x][y];
+            if (room.item) {
+                playTaDahSound(); // Play "Ta-Dah!" sound when item found.
+                updateScore(room.item, api.state.score); // Update score.
+                api.setState("destination", room.item);
+                updateNotes(room.item); // Update player's notes.
+                setFlavourText(room.item); // Set description for the room.
+            } else {
+                setFlavourText(); // Set empty room description.
             }
-            //set the room description
-                setFlavourText(room.item);
-
         }
 
+        /**
+         * Function to update player's notes when an item is found.
+         * @param {Object} item - The item found in the room.
+         */
         function updateNotes(item) {
             let notes = api.state.playerNotes;
-     if (!notes.includes(item)) {
-        notes.unshift(item); // Adds the item to the beginning of the array
-    }
+            if (!notes.includes(item)) {
+                notes.unshift(item); // Add item to the beginning of notes if not already present.
+            }
             api.setState("playerNotes", notes);
-            const notesContainer = document.getElementById('item-container_playerNotes');
-            notesContainer.scrollTop = notesContainer.scrollHeight;
-
-        }
-        
-
-        function openDoorModal(item) {
-            console.log(item);
-            console.log(api.state.destination);
-            helpers.modal.open("[component-id$='confirm_door']");
-            
         }
 
+        /**
+         * Function to set the flavour text for the current room.
+         * @param {Object} [item] - The item in the room, if any.
+         */
         function setFlavourText(item) {
-            if (item.description) {
-                api.setState("flavourText",item.description);
+            if (item && item.description) {
+                api.setState("flavourText", item.description);
             } else {
                 let emptyText = api.state.emptyRooms;
-               api.setState("flavourText",emptyText[Math.floor(Math.random() * emptyText.length)]); 
+                api.setState("flavourText", emptyText[Math.floor(Math.random() * emptyText.length)]); // Random empty room text.
             }
         }
 
+        /**
+         * Function to update player's score when an item is found.
+         * @param {Object} item - The item found in the room.
+         * @param {number} currentScore - Player's current score.
+         */
         function updateScore(item, currentScore) {
-             
             let points = item.type == "reference" ? 2000 : 1000;
-            console.log("p-"+points);
             let total = currentScore + points;
-            console.log("t-"+total);
-            api.setState("score",total);
-             
+            api.setState("score", total);
         }
     });
-
 }
-
-
 ]]></script>
         <script_api_version>2.0.0</script_api_version>
         <sys_class_name>sys_ux_client_script</sys_class_name>
         <sys_created_by>matt@pamtconsulting.com</sys_created_by>
         <sys_created_on>2024-10-23 17:45:54</sys_created_on>
         <sys_id>9136ef23839d1a10b68c9640ceaad398</sys_id>
-        <sys_mod_count>104</sys_mod_count>
+        <sys_mod_count>124</sys_mod_count>
         <sys_name>Controller</sys_name>
         <sys_package display_value="Drama" source="x_pamtn_drama">8cf4690383559610b68c9640ceaad3b8</sys_package>
         <sys_policy/>
         <sys_scope display_value="Drama">8cf4690383559610b68c9640ceaad3b8</sys_scope>
         <sys_update_name>sys_ux_client_script_9136ef23839d1a10b68c9640ceaad398</sys_update_name>
         <sys_updated_by>matt@pamtconsulting.com</sys_updated_by>
-        <sys_updated_on>2024-11-24 20:05:00</sys_updated_on>
+        <sys_updated_on>2024-11-25 01:24:21</sys_updated_on>
         <target>macroponent</target>
         <type>default</type>
     </sys_ux_client_script>
