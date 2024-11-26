@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Default">87b1efeb835d1a10b68c9640ceaad376</macroponent>
+        <name>Populate items in Grid</name>
+        <preset/>
+        <required_translations>[]</required_translations>
+        <script><![CDATA[/**
+* @param {params} params
+* @param {api} params.api
+* @param {any} params.event
+* @param {any} params.imports
+* @param {ApiHelpers} params.helpers
+*/
+function handler({api, event, helpers, imports}) {
+
+    let grid = api.state.grid;
+    let data = api.data.get_not_null_fields_1.output;
+    let size = api.state.size; 
+    let score = api.state.score;
+// Helper function to generate random coordinates
+function getRandomCoordinates() {
+    const x = Math.floor(Math.random() * size);
+    const y = Math.floor(Math.random() * size);
+    return { x, y };
+}
+
+// Function to place each item at a unique location in the grid
+function placeDataInGrid(grid, data) {
+    const keys = Object.keys(data); // Get all the data keys
+
+    keys.forEach(key => {
+        let placed = false;
+
+        while (!placed) {
+            const { x, y } = getRandomCoordinates();
+
+            if (!grid[x][y].occupied) {
+                // Place the data item in the grid
+                grid[x][y].item = data[key];
+                //grid[x][y].occupied = true;
+                placed = true; // Exit the loop for this item
+            }
+        }
+    });
+}
+
+// Place the data in the grid
+placeDataInGrid(grid, data);
+
+let newGrid = [...grid];
+api.setState(grid,newGrid);
+console.log(newGrid);
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>matt@pamtconsulting.com</sys_created_by>
+        <sys_created_on>2024-10-24 02:42:49</sys_created_on>
+        <sys_id>c1dc11bf83555a10b68c9640ceaad3d4</sys_id>
+        <sys_mod_count>9</sys_mod_count>
+        <sys_name>Populate items in Grid</sys_name>
+        <sys_package display_value="Drama" source="x_pamtn_drama">8cf4690383559610b68c9640ceaad3b8</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Drama">8cf4690383559610b68c9640ceaad3b8</sys_scope>
+        <sys_update_name>sys_ux_client_script_c1dc11bf83555a10b68c9640ceaad3d4</sys_update_name>
+        <sys_updated_by>matt@pamtconsulting.com</sys_updated_by>
+        <sys_updated_on>2024-11-24 19:36:34</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

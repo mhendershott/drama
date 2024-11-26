@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Default">87b1efeb835d1a10b68c9640ceaad376</macroponent>
+        <name>Initialize Grid</name>
+        <preset/>
+        <required_translations>[
+    
+]</required_translations>
+        <script><![CDATA[/**
+ * @param {params} params
+ * @param {api} params.api
+ * @param {any} params.event
+ * @param {any} params.imports
+ * @param {ApiHelpers} params.helpers
+ */
+function handler({
+    api,
+    event,
+    helpers,
+    imports
+}) {
+
+    const size = api.state.size;
+    const grid = Array.from({
+                length: size
+            }, () =>
+            Array.from({
+                    length: size
+                }, () => ({
+                    occupied: false,
+                    table: "",
+                    sysId: "",
+                    visited: false,
+                    item: false
+                }))
+    );
+
+
+                const pos = api.state.position; grid[pos.x][pos.y].occupied = true; api.setState("grid", grid); console.log(grid);
+                //
+                const gridMeta = [];
+
+                for (let row = 0; row < size; row++) {
+                    for (let col = 0; col < size; col++) {
+                        gridMeta.push({
+                            row,
+                            col,
+                            occupied: false,
+                            seen: false,
+                            table: "",
+                            sysId: ""
+                        });
+                    }
+                }
+
+                console.log(grid);
+            }]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>matt@pamtconsulting.com</sys_created_by>
+        <sys_created_on>2024-10-23 17:28:52</sys_created_on>
+        <sys_id>1fb167eb835d1a10b68c9640ceaad3a8</sys_id>
+        <sys_mod_count>27</sys_mod_count>
+        <sys_name>Initialize Grid</sys_name>
+        <sys_package display_value="Drama" source="x_pamtn_drama">8cf4690383559610b68c9640ceaad3b8</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Drama">8cf4690383559610b68c9640ceaad3b8</sys_scope>
+        <sys_update_name>sys_ux_client_script_1fb167eb835d1a10b68c9640ceaad3a8</sys_update_name>
+        <sys_updated_by>matt@pamtconsulting.com</sys_updated_by>
+        <sys_updated_on>2024-10-24 02:31:27</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

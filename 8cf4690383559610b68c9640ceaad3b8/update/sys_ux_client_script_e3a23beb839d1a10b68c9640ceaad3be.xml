@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Default">87b1efeb835d1a10b68c9640ceaad376</macroponent>
+        <name>Music Loop</name>
+        <preset/>
+        <required_translations>[]</required_translations>
+        <script><![CDATA[/**
+ * @param {params} params
+ * @param {api} params.api
+ * @param {any} params.event
+ * @param {any} params.imports
+ * @param {ApiHelpers} params.helpers
+ */
+function handler({
+    api,
+    event,
+    helpers,
+    imports
+}) {
+
+
+    helpers.timing.setTimeout(function() {
+        const window = this;
+        const audioContext = new(window.AudioContext || window.webkitAudioContext)();
+    // Step 1: Frequency mapping for musical notes (A4 is 440 Hz)
+const noteFrequencies = {
+    "C4": 261.63, "C#4": 277.18, "D4": 293.66, "D#4": 311.13, "E4": 329.63,
+    "F4": 349.23, "F#4": 369.99, "G4": 392.00, "G#4": 415.30, "A4": 440.00,
+    "A#4": 466.16, "B4": 493.88,
+    "C5": 523.25, "C#5": 554.37, "D5": 587.33, "D#5": 622.25, "E5": 659.25,
+    "F5": 698.46, "F#5": 739.99, "G5": 783.99, "G#5": 830.61, "A5": 880.00,
+    "A#5": 932.33, "B5": 987.77
+};
+
+// Step 2: Note sequence
+const noteSequence = [
+    "C4", "G4", "A4", "E4",
+    "F4", "C5", "G4", "B4",
+    "E4", "G4", "C5", "D5",
+    "A4", "E4", "G4", "C5",
+    "G4", "D5", "E5", "G4",
+    "F4", "C5", "D5", "E4",
+    "A4", "C5", "B4", "G4",
+    "D4", "E4", "C4", "A4",
+    "E4", "G4", "C5", "G4",
+    "B4", "F4", "C5", "D5",
+    "A4", "E4", "G4", "C5",
+    "F4", "D5", "C4", "G4"
+];
+
+// Step 3: Create an AudioContext
+//const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+let tempo = 225; // 600ms per beat, adjust this to make it faster or slower
+
+// Step 4: Play each note in sequence
+function playNoteSequence(sequence, index = 0) {
+    if (index >= sequence.length) return; // End of sequence
+
+    let note = sequence[index];
+    let frequency = noteFrequencies[note];
+
+    if (frequency) {
+        // Create an oscillator node
+        const oscillator = audioContext.createOscillator();
+        oscillator.type = "sine"; // You can change this to "square", "sawtooth", etc.
+        oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+
+        // Create a gain node to control the volume
+        const gainNode = audioContext.createGain();
+        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime); // Set volume level
+
+        // Connect oscillator to gain node, then to destination (speakers)
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+
+        // Start and stop the oscillator after a beat duration
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + tempo / 1000);
+
+        // Schedule the next note after the current one
+        helpers.timing.setTimeout(() => playNoteSequence(sequence, index + 1), tempo);
+    }
+}
+
+// Start playing the sequence
+playNoteSequence(noteSequence);
+
+
+    });
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>matt@pamtconsulting.com</sys_created_by>
+        <sys_created_on>2024-10-23 18:58:49</sys_created_on>
+        <sys_id>e3a23beb839d1a10b68c9640ceaad3be</sys_id>
+        <sys_mod_count>25</sys_mod_count>
+        <sys_name>Music Loop</sys_name>
+        <sys_package display_value="Drama" source="x_pamtn_drama">8cf4690383559610b68c9640ceaad3b8</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Drama">8cf4690383559610b68c9640ceaad3b8</sys_scope>
+        <sys_update_name>sys_ux_client_script_e3a23beb839d1a10b68c9640ceaad3be</sys_update_name>
+        <sys_updated_by>matt@pamtconsulting.com</sys_updated_by>
+        <sys_updated_on>2024-11-24 16:36:29</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="m2m_style_asset">
+    <m2m_style_asset action="INSERT_OR_UPDATE">
+        <asset display_value="Oxanium">f951118a83ca1610b68c9640ceaad30f</asset>
+        <properties>{&#13;
+ font-optical-sizing: auto;&#13;
+  font-weight: 400;&#13;
+  font-style: regular;&#13;
+&#13;
+}&#13;
+</properties>
+        <style display_value="Typography">184ef69383d9d610b68c9640ceaad393</style>
+        <sys_class_name>m2m_style_asset</sys_class_name>
+        <sys_created_by>matt@pamtconsulting.com</sys_created_by>
+        <sys_created_on>2024-11-24 21:51:09</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_id>8522598a83ca1610b68c9640ceaad3de</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_overrides/>
+        <sys_package display_value="Drama" source="x_pamtn_drama">8cf4690383559610b68c9640ceaad3b8</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Drama">8cf4690383559610b68c9640ceaad3b8</sys_scope>
+        <sys_update_name>m2m_style_asset_8522598a83ca1610b68c9640ceaad3de</sys_update_name>
+        <sys_updated_by>matt@pamtconsulting.com</sys_updated_by>
+        <sys_updated_on>2024-11-24 21:51:09</sys_updated_on>
+    </m2m_style_asset>
+</record_update>

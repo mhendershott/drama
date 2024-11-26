@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Default">87b1efeb835d1a10b68c9640ceaad376</macroponent>
+        <name>Controller</name>
+        <preset/>
+        <required_translations>[]</required_translations>
+        <script><![CDATA[/**
+ * Handles key events and movement, along with playing sound effects and updating game state.
+ * 
+ * @param {Object} params - Object containing event data and helper functions.
+ * @param {Object} params.api - API object for managing game state.
+ * @param {Object} params.event - Event object (unused in this function).
+ * @param {Object} params.helpers - Helper functions for timing and other operations.
+ * @param {Object} params.imports - Imported resources (unused in this function).
+ */
+function handler({
+    api,
+    event,
+    helpers,
+    imports
+}) {
+    // Delay execution of the handler using a setTimeout function to simulate event-driven environment.
+    helpers.timing.setTimeout(function() {
+        const document = this.document;
+        const window = this;
+        const grid = api.state.grid;
+        const audioCtx = new(window.AudioContext || window.webkitAudioContext)(); // Shared audio context for all sound effects
+        let score = 0;
+        // Keydown event listener to handle directional movement.
+        document.addEventListener('keydown', (event) => {
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+                event.preventDefault(); // Prevent default scrolling behavior for arrow keys.
+            }
+
+            // Move based on the arrow key pressed.
+            switch (event.key) {
+                case 'ArrowUp':
+                    console.log('Up arrow pressed');
+                    move('up');
+                    break;
+                case 'ArrowDown':
+                    console.log('Down arrow pressed');
+                    move('down');
+                    break;
+                case 'ArrowLeft':
+                    console.log('Left arrow pressed');
+                    move('left');
+                    break;
+                case 'ArrowRight':
+                    console.log('Right arrow pressed');
+                    move('right');
+                    break;
+            }
+        });
+
+        /**
+         * Function to play a short "blip" sound when moving.
+         */
+        function playBlipSound() {
+            const oscillator = audioCtx.createOscillator();
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(800, audioCtx.currentTime); // Frequency set to 800 Hz for the blip sound.
+
+            const gainNode = audioCtx.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            gainNode.gain.setValueAtTime(1, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1); // Volume ramp down for 0.1 seconds.
+
+            oscillator.start(audioCtx.currentTime);
+            oscillator.stop(audioCtx.currentTime + 0.1); // Stop after 0.1 seconds.
+        }
+
+        /**
+         * Function to play a "Ta-Dah!" sound when an item is found.
+         */
+        function playTaDahSound() {
+            // "Ta" part of the sound.
+            const taOscillator = audioCtx.createOscillator();
+            const taGainNode = audioCtx.createGain();
+            taOscillator.type = 'sine';
+            taOscillator.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5 note.
+            taOscillator.connect(taGainNode);
+            taGainNode.connect(audioCtx.destination);
+            taGainNode.gain.setValueAtTime(1, audioCtx.currentTime);
+            taGainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
+            taOscillator.start(audioCtx.currentTime);
+            taOscillator.stop(audioCtx.currentTime + 0.2);
+
+            // "Dah!" part of the sound.
+            const dahOscillator = audioCtx.createOscillator();
+            const dahGainNode = audioCtx.createGain();
+            dahOscillator.type = 'triangle';
+            dahOscillator.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.25); // E5 note.
+            dahOscillator.connect(dahGainNode);
+            dahGainNode.connect(audioCtx.destination);
+            dahGainNode.gain.setValueAtTime(1, audioCtx.currentTime + 0.25);
+            dahGainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1);
+            dahOscillator.start(audioCtx.currentTime + 0.25);
+            dahOscillator.stop(audioCtx.currentTime + 1);
+        }
+
+        /**
+         * Function to handle movement based on direction.
+         * @param {string} direction - Direction to move ('up', 'down', 'left', 'right').
+         */
+        function move(direction) {
+            let pos = api.state.position;
+            let grid = api.state.grid;
+            let size = api.state.size;
+
+            // Clear current position.
+            grid[pos.x][pos.y].occupied = false;
+
+            // Update position based on direction.
+            switch (direction) {
+                case 'up':
+                    if (pos.x > 0) pos.x -= 1;
+                    break;
+                case 'down':
+                    if (pos.x < size - 1) pos.x += 1;
+                    break;
+                case 'left':
+                    if (pos.y > 0) pos.y -= 1;
+                    break;
+                case 'right':
+                    if (pos.y < size - 1) pos.y += 1;
+                    break;
+            }
+
+            //Check the grid position and handle events
+            checkGrid(pos.x, pos.y);
+            
+            // Set new position.
+            grid[pos.x][pos.y].occupied = true;
+            grid[pos.x][pos.y].visited = true;
+
+ 
+
+            api.setState('position', {
+                x: pos.x,
+                y: pos.y
+            });
+
+   
+            api.setState('grid', [...grid]); // Update grid state.
+            playBlipSound(); // Play movement sound.
+
+            
+            
+            console.log(`Moved ${direction}. New position: (${pos.x}, ${pos.y})`); // Debug log.
+        }
+
+        /**
+         * Function to check the current grid position and handle items.
+         * @param {number} x - X coordinate of the grid.
+         * @param {number} y - Y coordinate of the grid.
+         */
+        function checkGrid(x, y) {
+            const room = grid[x][y];
+            if (room.item) {
+                playTaDahSound(); // Play "Ta-Dah!" sound when item found.
+                updateScore(room.item, api.state.score); // Update score.
+                api.setState("destination", room.item);
+                updateNotes(room.item); // Update player's notes.
+                setFlavourText(room.item); // Set description for the room.
+            } else {
+                setFlavourText(); // Set empty room description.
+            }
+        }
+
+        /**
+         * Function to update player's notes when an item is found.
+         * @param {Object} item - The item found in the room.
+         */
+        function updateNotes(item) {
+            let notes = api.state.playerNotes;
+            if (!notes.includes(item)) {
+                notes.unshift(item); // Add item to the beginning of notes if not already present.
+            }
+            api.setState("playerNotes", notes);
+        }
+
+        /**
+         * Function to set the flavour text for the current room.
+         * @param {Object} [item] - The item in the room, if any.
+         */
+        function setFlavourText(item) {
+            if (item && item.description) {
+                api.setState("flavourText", item.description);
+            } else {
+                let emptyText = api.state.emptyRooms;
+                api.setState("flavourText", emptyText[Math.floor(Math.random() * emptyText.length)]); // Random empty room text.
+            }
+        }
+
+
+        /**
+         * Function to update player's score when an item is found.
+         * @param {Object} item - The item found in the room.
+         * @param {number} currentScore - Player's current score.
+         */
+        function updateScore(item, currentScore) {
+            let pos = api.state.position;
+            console.log(grid[pos.x][pos.y].visited );
+            if (grid[pos.x][pos.y].visited === false) {;
+                console.log('Updating score: Current Score:', currentScore, 'Item:', item);
+                let points = item.type === "reference" ? 2000 : 1000;
+                score = score + points;
+                api.setState("score", score);
+            }
+        }
+    });
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>matt@pamtconsulting.com</sys_created_by>
+        <sys_created_on>2024-10-23 17:45:54</sys_created_on>
+        <sys_id>9136ef23839d1a10b68c9640ceaad398</sys_id>
+        <sys_mod_count>142</sys_mod_count>
+        <sys_name>Controller</sys_name>
+        <sys_package display_value="Drama" source="x_pamtn_drama">8cf4690383559610b68c9640ceaad3b8</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Drama">8cf4690383559610b68c9640ceaad3b8</sys_scope>
+        <sys_update_name>sys_ux_client_script_9136ef23839d1a10b68c9640ceaad398</sys_update_name>
+        <sys_updated_by>matt@pamtconsulting.com</sys_updated_by>
+        <sys_updated_on>2024-11-26 02:15:17</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>

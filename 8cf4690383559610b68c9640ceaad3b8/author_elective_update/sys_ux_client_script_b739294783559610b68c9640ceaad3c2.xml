@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="DELETE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Default">ff35e94383559610b68c9640ceaad3a6</macroponent>
+        <name>stylized_text_1/css</name>
+        <preset/>
+        <required_translations>[
+    
+]</required_translations>
+        <script><![CDATA[/**
+  * @param {params} params
+  * @param {api} params.api
+  * @param {TransformApiHelpers} params.helpers
+  */
+function evaluateProperty({api, helpers}) {
+  if (api.item.value.selected==true) {
+    return "color: red;";
+  }
+	return '';
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>matt@pamtconsulting.com</sys_created_by>
+        <sys_created_on>2024-10-21 19:44:31</sys_created_on>
+        <sys_id>b739294783559610b68c9640ceaad3c2</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>stylized_text_1/css</sys_name>
+        <sys_package display_value="Drama" source="x_pamtn_drama">8cf4690383559610b68c9640ceaad3b8</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Drama">8cf4690383559610b68c9640ceaad3b8</sys_scope>
+        <sys_update_name>sys_ux_client_script_b739294783559610b68c9640ceaad3c2</sys_update_name>
+        <sys_updated_by>matt@pamtconsulting.com</sys_updated_by>
+        <sys_updated_on>2024-10-21 19:44:31</sys_updated_on>
+        <target>macroponent</target>
+        <type>transform</type>
+    </sys_ux_client_script>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Drama">8cf4690383559610b68c9640ceaad3b8</application>
+        <file_path/>
+        <instance_id>ffaa9f54db2d11543050ac44d4961929</instance_id>
+        <instance_name>ven05610</instance_name>
+        <name>sys_ux_client_script_b739294783559610b68c9640ceaad3c2</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_ux_client_script"&gt;&lt;sys_ux_client_script action="INSERT_OR_UPDATE"&gt;&lt;controller_preset/&gt;&lt;includes/&gt;&lt;macroponent display_value="Default"&gt;ff35e94383559610b68c9640ceaad3a6&lt;/macroponent&gt;&lt;name&gt;stylized_text_1/css&lt;/name&gt;&lt;preset/&gt;&lt;required_translations&gt;[
+    
+]&lt;/required_translations&gt;&lt;script&gt;&lt;![CDATA[/**
+  * @param {params} params
+  * @param {api} params.api
+  * @param {TransformApiHelpers} params.helpers
+  */
+function evaluateProperty({api, helpers}) {
+  if (api.item.value.selected==true) {
+    return "color: red;";
+  }
+	return '';
+}]]&gt;&lt;/script&gt;&lt;script_api_version&gt;2.0.0&lt;/script_api_version&gt;&lt;sys_class_name&gt;sys_ux_client_script&lt;/sys_class_name&gt;&lt;sys_created_by&gt;matt@pamtconsulting.com&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2024-10-21 19:44:31&lt;/sys_created_on&gt;&lt;sys_id&gt;b739294783559610b68c9640ceaad3c2&lt;/sys_id&gt;&lt;sys_mod_count&gt;1&lt;/sys_mod_count&gt;&lt;sys_name&gt;stylized_text_1/css&lt;/sys_name&gt;&lt;sys_package display_value="Drama" source="x_pamtn_drama"&gt;8cf4690383559610b68c9640ceaad3b8&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Drama"&gt;8cf4690383559610b68c9640ceaad3b8&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_ux_client_script_b739294783559610b68c9640ceaad3c2&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;matt@pamtconsulting.com&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2024-10-21 19:44:31&lt;/sys_updated_on&gt;&lt;target&gt;macroponent&lt;/target&gt;&lt;type&gt;transform&lt;/type&gt;&lt;/sys_ux_client_script&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>185190065</payload_hash>
+        <record_name>stylized_text_1/css</record_name>
+        <reverted_from/>
+        <source>4cf4614383559610b68c9640ceaad376</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>matt@pamtconsulting.com</sys_created_by>
+        <sys_created_on>2024-10-21 19:44:31</sys_created_on>
+        <sys_id>ae1f610f83559610b68c9640ceaad3be</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>192b09c11a80000001</sys_recorded_at>
+        <sys_updated_by>matt@pamtconsulting.com</sys_updated_by>
+        <sys_updated_on>2024-10-21 19:44:31</sys_updated_on>
+        <type>UX Client Script</type>
+        <update_guid>621f610f515596101d6cd2e4cb288ebe</update_guid>
+        <update_guid_history>621f610f515596101d6cd2e4cb288ebe:185190065</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>matt@pamtconsulting.com</sys_created_by>
+        <sys_created_on>2024-10-21 19:59:20</sys_created_on>
+        <sys_db_object display_value="" name="sys_ux_client_script">sys_ux_client_script</sys_db_object>
+        <sys_id>21deab2100094541a5e6f1ba524d1b11</sys_id>
+        <sys_metadata>b739294783559610b68c9640ceaad3c2</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>stylized_text_1/css</sys_name>
+        <sys_package display_value="Drama" source="x_pamtn_drama">8cf4690383559610b68c9640ceaad3b8</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Drama">8cf4690383559610b68c9640ceaad3b8</sys_scope>
+        <sys_scope_delete display_value="">484c8c36534d4f158c45d9d24f5a9889</sys_scope_delete>
+        <sys_update_name>sys_ux_client_script_b739294783559610b68c9640ceaad3c2</sys_update_name>
+        <sys_update_version display_value="sys_ux_client_script_b739294783559610b68c9640ceaad3c2">ae1f610f83559610b68c9640ceaad3be</sys_update_version>
+        <sys_updated_by>matt@pamtconsulting.com</sys_updated_by>
+        <sys_updated_on>2024-10-21 19:59:20</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

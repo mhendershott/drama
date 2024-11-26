@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_client_script">
+    <sys_ux_client_script action="INSERT_OR_UPDATE">
+        <controller_preset/>
+        <includes/>
+        <macroponent display_value="Default">ff35e94383559610b68c9640ceaad3a6</macroponent>
+        <name>MakeItDramatic</name>
+        <preset/>
+        <required_translations>[
+    
+]</required_translations>
+        <script><![CDATA[/**
+ * @param {params} params
+ * @param {api} params.api
+ * @param {any} params.event
+ * @param {any} params.imports
+ * @param {ApiHelpers} params.helpers
+ */
+function handler({
+    api,
+    event,
+    helpers,
+    imports
+}) {
+    //wrapping everything in this to get the "window" context, which is equivalent to "this" in this context.
+    //It's a sketchy workaround.
+    helpers.timing.setTimeout(function() {
+
+        let loops = api.state.loops;
+        let delay = api.state.delay;
+        let last = 0;
+
+        let intervalId = helpers.timing.setInterval(theDrama, delay);
+
+        // Create an audio context
+        const audioContext = new(this.AudioContext || this.webkitAudioContext)();
+
+
+        function theDrama() {
+            let myEntries = JSON.parse(JSON.stringify(api.state.entries));
+
+            // set a random value to true
+            let rand = parseInt(Math.floor(Math.random() * myEntries.length));
+            last = rand;
+
+            myEntries[last].selected = false; // Clear the last selected
+            myEntries[rand].selected = true; // select a new random item.
+
+            //set new value to client state to trigger update.
+            api.setState('entries', myEntries);
+            playBeep(1200, delay);
+
+            loops--;
+
+            //Stop after loops expired
+            if (loops < 1) {
+                helpers.timing.clearInterval(intervalId);
+            }
+        }
+
+        // Function to generate a beep sound with adjustable frequency and duration
+        function playBeep(frequency = 800, duration = 100) {
+
+                const oscillator = audioContext.createOscillator(); // Create an oscillator node
+                const gainNode = audioContext.createGain(); // Create a gain node to control volume
+
+                // Set up oscillator properties
+                oscillator.type = 'square'; // Square wave works well for beep sounds
+                oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+
+                // Connect nodes: oscillator -> gain -> destination (speakers)
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+
+                // Control the volume: start loud and fade out quickly
+                gainNode.gain.setValueAtTime(1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration / 1000);
+
+                // Start and stop the beep sound
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + duration / 1000);
+           
+        }
+
+    });
+}]]></script>
+        <script_api_version>2.0.0</script_api_version>
+        <sys_class_name>sys_ux_client_script</sys_class_name>
+        <sys_created_by>matt@pamtconsulting.com</sys_created_by>
+        <sys_created_on>2024-10-21 19:41:25</sys_created_on>
+        <sys_id>7739294783559610b68c9640ceaad3c2</sys_id>
+        <sys_mod_count>87</sys_mod_count>
+        <sys_name>MakeItDramatic</sys_name>
+        <sys_package display_value="Drama" source="x_pamtn_drama">8cf4690383559610b68c9640ceaad3b8</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Drama">8cf4690383559610b68c9640ceaad3b8</sys_scope>
+        <sys_update_name>sys_ux_client_script_7739294783559610b68c9640ceaad3c2</sys_update_name>
+        <sys_updated_by>matt@pamtconsulting.com</sys_updated_by>
+        <sys_updated_on>2024-10-22 02:53:16</sys_updated_on>
+        <target>macroponent</target>
+        <type>default</type>
+    </sys_ux_client_script>
+</record_update>
