@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ux_macroponent">
+    <sys_ux_macroponent action="INSERT_OR_UPDATE">
+        <associated_types/>
+        <bundles/>
+        <category>chrome</category>
+        <component_dependencies/>
+        <composition>[
+    {
+        "definition": {
+            "id": "146b5c95ee9a5f162e9593abd7a3c266",
+            "type": "MACROPONENT"
+        },
+        "elementId": "canvasLayout",
+        "elementLabel": "Canvas Layout",
+        "overrides": {
+            "composition": [
+                {
+                    "definition": {
+                        "id": "65c07e3bf2b471de2698e31f28e46bf9",
+                        "type": "MACROPONENT"
+                    },
+                    "elementId": "sn-canvas-error",
+                    "elementLabel": "Canvas Error Handler",
+                    "propertyValues": {
+                        "modal": {
+                            "binding": {
+                                "address": [
+                                    "portal_app_shell_data_source",
+                                    "uxPropertiesAndAuthRoutes",
+                                    "enable_login_modal",
+                                    "global",
+                                    "enabled"
+                                ]
+                            },
+                            "type": "DATA_OUTPUT_BINDING"
+                        }
+                    },
+                    "slot": "main"
+                },
+                {
+                    "definition": {
+                        "id": "5bd52090fa64160b4e43e99571bd4036",
+                        "type": "MACROPONENT"
+                    },
+                    "elementId": "sn-canvas-header",
+                    "elementLabel": "Canvas Header",
+                    "overrides": {
+                        "composition": [
+                            {
+                                "definition": {
+                                    "id": "de369d9394108fea91a100480a1351b5",
+                                    "type": "MACROPONENT"
+                                },
+                                "elementId": "menu",
+                                "elementLabel": "Canvas Menu",
+                                "propertyValues": {
+                                    "actionButtons": {
+                                        "binding": {
+                                            "address": [
+                                                "menuActionButtons"
+                                            ]
+                                        },
+                                        "type": "STATE_BINDING"
+                                    },
+                                    "activeScreen": "@elements.canvasLayout.activeScreenId",
+                                    "items": {
+                                        "binding": {
+                                            "address": [
+                                                "menuItems"
+                                            ]
+                                        },
+                                        "type": "STATE_BINDING"
+                                    },
+                                    "menuWidth": "1600",
+                                    "use": "light"
+                                },
+                                "slot": "navigation-menu"
+                            },
+                            {
+                                "definition": {
+                                    "id": "ce26d6793802478648556dc1f88fe020",
+                                    "type": "MACROPONENT"
+                                },
+                                "elementId": "search",
+                                "elementLabel": "Search Combobox Component for Desktop",
+                                "eventMappings": [
+                                    {
+                                        "eventMappingId": "executeSearch",
+                                        "sourceEventSysId": "b9371592f51f3cbbffc541c37d0d41ac",
+                                        "targets": [
+                                            {
+                                                "event": {
+                                                    "payload": {
+                                                        "container": {
+                                                            "fields": {
+                                                                "container": {
+                                                                    "searchContextConfigId": {
+                                                                        "binding": {
+                                                                            "address": [
+                                                                                "searchContextConfigId"
+                                                                            ]
+                                                                        },
+                                                                        "type": "EVENT_PAYLOAD_BINDING"
+                                                                    }
+                                                                },
+                                                                "type": "MAP_CONTAINER"
+                                                            },
+                                                            "params": {
+                                                                "container": {
+                                                                    "searchTerm": {
+                                                                        "binding": {
+                                                                            "address": [
+                                                                                "searchTerm"
+                                                                            ]
+                                                                        },
+                                                                        "type": "EVENT_PAYLOAD_BINDING"
+                                                                    }
+                                                                },
+                                                                "type": "MAP_CONTAINER"
+                                                            },
+                                                            "route": {
+                                                                "type": "JSON_LITERAL",
+                                                                "value": "search"
+                                                            }
+                                                        },
+                                                        "type": "MAP_CONTAINER"
+                                                    },
+                                                    "sysId": "8b82bf18e5276c8e423b6e4e0889b463"
+                                                },
+                                                "type": "EVENT"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "propertyValues": {
+                                    "placement": {
+                                        "type": "JSON_LITERAL",
+                                        "value": "header"
+                                    },
+                                    "searchContextConfigId": {
+                                        "binding": {
+                                            "address": [
+                                                "portal_app_shell_data_source",
+                                                "uxPropertiesAndAuthRoutes",
+                                                "global_search_configurations",
+                                                "global",
+                                                "globalSearchContextConfigId"
+                                            ]
+                                        },
+                                        "type": "DATA_OUTPUT_BINDING"
+                                    }
+                                },
+                                "slot": "search-input"
+                            }
+                        ]
+                    },
+                    "propertyValues": {
+                        "authenticated": {
+                            "binding": {
+                                "address": [
+                                    "canvasLayout",
+                                    "canvasSession",
+                                    "sessionLoggedIn"
+                                ]
+                            },
+                            "type": "ELEMENT_BINDING"
+                        },
+                        "configurations": {
+                            "binding": {
+                                "address": [
+                                    "portal_app_shell_data_source",
+                                    "uxPropertiesAndAuthRoutes",
+                                    "chrome_header"
+                                ]
+                            },
+                            "type": "DATA_OUTPUT_BINDING"
+                        },
+                        "currentRoute": {
+                            "binding": {
+                                "address": [
+                                    "canvasLayout",
+                                    "selectedContent"
+                                ]
+                            },
+                            "type": "ELEMENT_BINDING"
+                        },
+                        "logoAltText": "",
+                        "modal": "@elements.canvasLayout.modal",
+                        "size": "tall",
+                        "userAvatar": {
+                            "binding": {
+                                "address": [
+                                    "user",
+                                    "avatar"
+                                ],
+                                "category": "session"
+                            },
+                            "type": "CONTEXT_BINDING"
+                        },
+                        "userName": {
+                            "binding": {
+                                "address": [
+                                    "user",
+                                    "fullName"
+                                ],
+                                "category": "session"
+                            },
+                            "type": "CONTEXT_BINDING"
+                        }
+                    },
+                    "slot": "header"
+                },
+                {
+                    "definition": {
+                        "id": "b7e42b24bc7b3cc575e896ef63c21dc4",
+                        "type": "MACROPONENT"
+                    },
+                    "elementId": "sn-canvas-main",
+                    "elementLabel": "Canvas Main",
+                    "propertyValues": {
+                        "mainConfig": {
+                            "binding": {
+                                "address": [
+                                    "portal_app_shell_data_source",
+                                    "uxPropertiesAndAuthRoutes",
+                                    "chrome_main",
+                                    "global"
+                                ]
+                            },
+                            "type": "DATA_OUTPUT_BINDING"
+                        },
+                        "screenTitles": {
+                            "binding": {
+                                "address": [
+                                    "canvasLayout",
+                                    "screenTitles"
+                                ]
+                            },
+                            "type": "ELEMENT_BINDING"
+                        },
+                        "userPrefs": {
+                            "binding": {
+                                "address": [
+                                    "canvasLayout",
+                                    "canvasSession",
+                                    "userPrefs"
+                                ]
+                            },
+                            "type": "ELEMENT_BINDING"
+                        }
+                    },
+                    "slot": "main"
+                },
+                {
+                    "definition": {
+                        "id": "f10e4b4e939d38d9ea23402006c9991d",
+                        "type": "MACROPONENT"
+                    },
+                    "elementId": "sn-canvas-footer",
+                    "elementLabel": "Canvas Footer",
+                    "propertyValues": {
+                        "footerConfig": {
+                            "binding": {
+                                "address": [
+                                    "portal_app_shell_data_source",
+                                    "uxPropertiesAndAuthRoutes",
+                                    "chrome_footer"
+                                ]
+                            },
+                            "type": "DATA_OUTPUT_BINDING"
+                        },
+                        "footerLinksetConfig": {
+                            "binding": {
+                                "address": [
+                                    "portal_app_shell_data_source",
+                                    "uxPropertiesAndAuthRoutes",
+                                    "chrome_linkset"
+                                ]
+                            },
+                            "type": "DATA_OUTPUT_BINDING"
+                        }
+                    },
+                    "slot": "footer"
+                }
+            ],
+            "layout": {
+                "default": {
+                    "items": [
+                        {
+                            "rules": {
+                                "grid-area": "2"
+                            },
+                            "slotName": "main"
+                        }
+                    ],
+                    "root": null,
+                    "rules": {
+                        "display": "grid",
+                        "grid-template-columns": "100%",
+                        "grid-template-rows": "auto 1fr auto",
+                        "min-height": "100vh"
+                    },
+                    "type": "grid"
+                }
+            }
+        },
+        "propertyValues": {
+            "experienceId": "@context.props.appId",
+            "userId": {
+                "binding": {
+                    "address": [
+                        "user",
+                        "sys_id"
+                    ],
+                    "category": "session"
+                },
+                "type": "CONTEXT_BINDING"
+            }
+        },
+        "slot": null
+    }
+]</composition>
+        <da_relay_models/>
+        <data>[
+    {
+        "definition": {
+            "id": "eaa5861c530210105a20ddeeff7b12fd",
+            "type": "COMPOSITE"
+        },
+        "elementId": "portal_app_shell_data_source",
+        "elementLabel": "Portal AppShell Data Source",
+        "eventMappings": [
+            {
+                "eventMappingId": "ckmhggbbddccraaaaaareebhhqghhwycceeny",
+                "isConfiguration": false,
+                "offRowStorageId": null,
+                "sourceEventApiName": "sn_uxf.DATA_FETCH_SUCCEEDED",
+                "sourceEventDefinition": {
+                    "apiName": "sn_uxf.DATA_FETCH_SUCCEEDED",
+                    "id": null,
+                    "type": "UXEVENT"
+                },
+                "sourceEventSysId": null,
+                "targets": [
+                    {
+                        "broker": null,
+                        "clientScript": {
+                            "sysId": "333835e9532111101c7eddeeff7b1247"
+                        },
+                        "declarativeAction": null,
+                        "event": null,
+                        "operation": null,
+                        "targetId": "ckmhggbbddccraaaaaaseebhhqscvddevcb",
+                        "type": "CLIENT_SCRIPT"
+                    }
+                ]
+            }
+        ],
+        "inputValues": {
+            "userPreferences": {
+                "binding": {
+                    "address": [
+                        "user",
+                        "preferences"
+                    ],
+                    "category": "session"
+                },
+                "type": "CONTEXT_BINDING"
+            },
+            "uxPageRegistrySysId": {
+                "binding": {
+                    "address": [
+                        "appId"
+                    ],
+                    "category": "props"
+                },
+                "type": "CONTEXT_BINDING"
+            }
+        }
+    },
+    {
+        "definition": {
+            "id": "9c7458c5536111101c7eddeeff7b12f9",
+            "type": "TRANSFORM"
+        },
+        "elementId": "portal_appshell_menu_provider",
+        "elementLabel": "Portal AppShell Menu Provider",
+        "eventMappings": [
+            {
+                "eventMappingId": "ckmhggbbddccraaaaaareebhhqghhwycceenz",
+                "isConfiguration": false,
+                "offRowStorageId": null,
+                "sourceEventApiName": "sn_uxf.DATA_FETCH_SUCCEEDED",
+                "sourceEventDefinition": {
+                    "apiName": "sn_uxf.DATA_FETCH_SUCCEEDED",
+                    "id": null,
+                    "type": "UXEVENT"
+                },
+                "sourceEventSysId": null,
+                "targets": [
+                    {
+                        "broker": null,
+                        "clientScript": {
+                            "sysId": "333835e9532111101c7eddeeff7b1247"
+                        },
+                        "declarativeAction": null,
+                        "event": null,
+                        "operation": null,
+                        "targetId": "ckmhggbbddccraaaaaaseebhhqscvddevca",
+                        "type": "CLIENT_SCRIPT"
+                    }
+                ]
+            }
+        ],
+        "inputValues": {
+            "appId": {
+                "binding": {
+                    "address": [
+                        "appId"
+                    ],
+                    "category": "props"
+                },
+                "type": "CONTEXT_BINDING"
+            }
+        }
+    }
+]</data>
+        <description/>
+        <disable_auto_reflow>false</disable_auto_reflow>
+        <dispatched_events/>
+        <ext_controller_dep/>
+        <extends display_value="UXR Base Experience Shell">76a83a645b122010b913030a1d81c780</extends>
+        <extension_point/>
+        <form_factors>{}</form_factors>
+        <handled_events/>
+        <interactions/>
+        <interfaces/>
+        <internal_event_mappings/>
+        <layout/>
+        <macroponent_dependencies/>
+        <name>Adventure Mode Portal App Shell</name>
+        <output_prop_mapping/>
+        <props>[
+    {
+        "fieldType": "string",
+        "label": "Application Id",
+        "name": "appId",
+        "valueType": "string"
+    }
+]</props>
+        <required_translations>[ ]</required_translations>
+        <root_component/>
+        <root_component_config/>
+        <root_component_definition/>
+        <schema_version>1.0.0</schema_version>
+        <state_persistence_config/>
+        <state_properties>[
+    {
+        "description": "Menu Items",
+        "fieldType": "json",
+        "initialValue": {
+            "type": "JSON_LITERAL",
+            "value": null
+        },
+        "label": "Menu items",
+        "name": "menuItems",
+        "shape": "",
+        "valueType": "json"
+    },
+    {
+        "description": "Action Buttons",
+        "fieldType": "json",
+        "initialValue": {
+            "type": "JSON_LITERAL",
+            "value": null
+        },
+        "label": "Menu action buttons",
+        "name": "menuActionButtons",
+        "shape": "",
+        "valueType": "json"
+    }
+]</state_properties>
+        <sys_class_name>sys_ux_macroponent</sys_class_name>
+        <sys_created_by>matt@pamtconsulting.com</sys_created_by>
+        <sys_created_on>2024-11-26 18:34:47</sys_created_on>
+        <sys_id>1468b266478a961098481845f16d43db</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Adventure Mode Portal App Shell</sys_name>
+        <sys_package display_value="Drama" source="x_pamtn_drama">8cf4690383559610b68c9640ceaad3b8</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Drama">8cf4690383559610b68c9640ceaad3b8</sys_scope>
+        <sys_update_name>sys_ux_macroponent_1468b266478a961098481845f16d43db</sys_update_name>
+        <sys_updated_by>matt@pamtconsulting.com</sys_updated_by>
+        <sys_updated_on>2024-11-26 18:35:07</sys_updated_on>
+    </sys_ux_macroponent>
+</record_update>
