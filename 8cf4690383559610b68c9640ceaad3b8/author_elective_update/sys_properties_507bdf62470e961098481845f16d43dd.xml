@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_properties">
+    <sys_properties action="DELETE">
+        <choices/>
+        <description/>
+        <ignore_cache>false</ignore_cache>
+        <is_private>false</is_private>
+        <name>glide.ui.polaris.theme_builder.override_logo</name>
+        <read_roles/>
+        <suffix/>
+        <sys_class_name>sys_properties</sys_class_name>
+        <sys_created_by>matt@pamtconsulting.com</sys_created_by>
+        <sys_created_on>2024-11-26 21:07:58</sys_created_on>
+        <sys_id>507bdf62470e961098481845f16d43dd</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>glide.ui.polaris.theme_builder.override_logo</sys_name>
+        <sys_package display_value="Drama" source="x_pamtn_drama">8cf4690383559610b68c9640ceaad3b8</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Drama">8cf4690383559610b68c9640ceaad3b8</sys_scope>
+        <sys_update_name>sys_properties_507bdf62470e961098481845f16d43dd</sys_update_name>
+        <sys_updated_by>matt@pamtconsulting.com</sys_updated_by>
+        <sys_updated_on>2024-11-26 21:07:58</sys_updated_on>
+        <type>boolean</type>
+        <value>false</value>
+        <write_roles/>
+    </sys_properties>
+    <sys_translated_text action="DELETE" query="documentkey=507bdf62470e961098481845f16d43dd"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Drama">8cf4690383559610b68c9640ceaad3b8</application>
+        <file_path/>
+        <instance_id>ffaa9f54db2d11543050ac44d4961929</instance_id>
+        <instance_name>ven05610</instance_name>
+        <name>sys_properties_507bdf62470e961098481845f16d43dd</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_properties"><sys_properties action="INSERT_OR_UPDATE"><choices/><description/><ignore_cache>false</ignore_cache><is_private>false</is_private><name>glide.ui.polaris.theme_builder.override_logo</name><read_roles/><suffix/><sys_class_name>sys_properties</sys_class_name><sys_created_by>matt@pamtconsulting.com</sys_created_by><sys_created_on>2024-11-26 21:07:58</sys_created_on><sys_id>507bdf62470e961098481845f16d43dd</sys_id><sys_mod_count>0</sys_mod_count><sys_name>glide.ui.polaris.theme_builder.override_logo</sys_name><sys_package display_value="Drama" source="x_pamtn_drama">8cf4690383559610b68c9640ceaad3b8</sys_package><sys_policy/><sys_scope display_value="Drama">8cf4690383559610b68c9640ceaad3b8</sys_scope><sys_update_name>sys_properties_507bdf62470e961098481845f16d43dd</sys_update_name><sys_updated_by>matt@pamtconsulting.com</sys_updated_by><sys_updated_on>2024-11-26 21:07:58</sys_updated_on><type>boolean</type><value>false</value><write_roles/></sys_properties><sys_translated_text action="delete_multiple" query="documentkey=507bdf62470e961098481845f16d43dd"/></record_update>]]></payload>
+        <payload_hash>1940234794</payload_hash>
+        <record_name>glide.ui.polaris.theme_builder.override_logo</record_name>
+        <reverted_from/>
+        <source>edc34dc247ca161098481845f16d435a</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>matt@pamtconsulting.com</sys_created_by>
+        <sys_created_on>2024-11-26 21:07:59</sys_created_on>
+        <sys_id>147b53a2470e961098481845f16d4367</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1936a4d6c400000001</sys_recorded_at>
+        <sys_updated_by>matt@pamtconsulting.com</sys_updated_by>
+        <sys_updated_on>2024-11-26 21:07:59</sys_updated_on>
+        <type>System Property</type>
+        <update_guid>907b53a20f0e9610fa12dd23d0dba666</update_guid>
+        <update_guid_history>907b53a20f0e9610fa12dd23d0dba666:1940234794</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>matt@pamtconsulting.com</sys_created_by>
+        <sys_created_on>2024-11-26 23:22:45</sys_created_on>
+        <sys_db_object display_value="" name="sys_properties">sys_properties</sys_db_object>
+        <sys_id>9a6fb6e011244972a0c3382bf5ea82a1</sys_id>
+        <sys_metadata>507bdf62470e961098481845f16d43dd</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>glide.ui.polaris.theme_builder.override_logo</sys_name>
+        <sys_package display_value="Drama" source="x_pamtn_drama">8cf4690383559610b68c9640ceaad3b8</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Drama">8cf4690383559610b68c9640ceaad3b8</sys_scope>
+        <sys_scope_delete display_value="">484c8c36534d4f158c45d9d24f5a9889</sys_scope_delete>
+        <sys_update_name>sys_properties_507bdf62470e961098481845f16d43dd</sys_update_name>
+        <sys_update_version display_value="sys_properties_507bdf62470e961098481845f16d43dd">147b53a2470e961098481845f16d4367</sys_update_version>
+        <sys_updated_by>matt@pamtconsulting.com</sys_updated_by>
+        <sys_updated_on>2024-11-26 23:22:45</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
