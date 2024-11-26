@@ -758,7 +758,7 @@
                                                                                             "script": {
                                                                                                 "apiVersion": "1.0.0",
                                                                                                 "controllerElementId": null,
-                                                                                                "inlineScript": "/**\n* @param {params} params\n* @param {api} params.api\n* @param {any} params.event\n*/\nfunction evaluateEvent({api, event}) {\n\tconsole.log(event);\n\t// It's always so hard to remember  how to format\n\t// these by script, so hopefully you find this helpful.\n\t\n\tlet table = event.context.item.value.table;\n\tlet sys_id = event.context.item.value.sys_id;\n\treturn {\n\t\troute: \"grid-thing\",\n\t\tfields: {\n\t\tsysId: sys_id ,\n\t\ttable: table\n\t},\n\t\tparams: {firstLoad: false},\n\t\tredirect: null,\n\t\tpassiveNavigation: true,\n\t\ttitle: \"Level: \" + event.context.item.value.displayName,\n\t\tmultiInstField: null,\n\t\ttargetRoute: null,\n\t\texternal: false,\n\t\tnavigationOptions: {\n\t\tnavigateExternal: false\n\t}\n\t};\n}",
+                                                                                                "inlineScript": "/**\n* @param {params} params\n* @param {api} params.api\n* @param {any} params.event\n*/\nfunction evaluateEvent({api, event}) {\n\tconsole.log(event);\n\t// It's always so hard to remember  how to format\n\t// these by script, so hopefully you find this helpful.\n\t\n\tlet table = event.context.item.value.table;\n\tlet sys_id = event.context.item.value.sys_id;\n\treturn {\n\t\troute: \"grid-thing\",\n\t\tfields: {\n\t\tsysId: sys_id ,\n\t\ttable: table\n\t},\n\t\tparams: {firstLoad: false},\n\t\tredirect: null,\n\t\tpassiveNavigation: false,\n\t\ttitle: \"Level: \" + event.context.item.value.displayName,\n\t\tmultiInstField: null,\n\t\ttargetRoute: null,\n\t\texternal: false,\n\t\tnavigationOptions: {\n\t\tnavigateExternal: true\n\t}\n\t};\n}",
                                                                                                 "scriptSysId": null,
                                                                                                 "target": null
                                                                                             },
@@ -2714,13 +2714,13 @@
         <sys_created_by>matt@pamtconsulting.com</sys_created_by>
         <sys_created_on>2024-10-23 17:22:19</sys_created_on>
         <sys_id>87b1efeb835d1a10b68c9640ceaad376</sys_id>
-        <sys_mod_count>290</sys_mod_count>
+        <sys_mod_count>293</sys_mod_count>
         <sys_name>Default</sys_name>
         <sys_package display_value="Drama" source="x_pamtn_drama">8cf4690383559610b68c9640ceaad3b8</sys_package>
         <sys_policy/>
         <sys_scope display_value="Drama">8cf4690383559610b68c9640ceaad3b8</sys_scope>
         <sys_update_name>sys_ux_macroponent_87b1efeb835d1a10b68c9640ceaad376</sys_update_name>
         <sys_updated_by>matt@pamtconsulting.com</sys_updated_by>
-        <sys_updated_on>2024-11-26 03:42:26</sys_updated_on>
+        <sys_updated_on>2024-11-26 19:18:07</sys_updated_on>
     </sys_ux_macroponent>
 </record_update>
