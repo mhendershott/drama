@@ -4,20 +4,20 @@
         <multiple_experiences>false</multiple_experiences>
         <name>UXR Base Unified App Matt</name>
         <primary_experience/>
-        <shell_root display_value="Hackathon Portal App Shell">5615f0fac389d2102e9db90fb0013111</shell_root>
+        <shell_root display_value="Adventure Mode Portal App Shell">1468b266478a961098481845f16d43db</shell_root>
         <shell_root_config/>
         <sys_class_name>sys_ux_app</sys_class_name>
         <sys_created_by>matt@pamtconsulting.com</sys_created_by>
         <sys_created_on>2024-10-22 16:49:12</sys_created_on>
         <sys_id>d490da938319d610b68c9640ceaad3ee</sys_id>
-        <sys_mod_count>5</sys_mod_count>
+        <sys_mod_count>6</sys_mod_count>
         <sys_name>UXR Base Unified App Matt</sys_name>
         <sys_package display_value="Drama" source="x_pamtn_drama">8cf4690383559610b68c9640ceaad3b8</sys_package>
         <sys_policy/>
         <sys_scope display_value="Drama">8cf4690383559610b68c9640ceaad3b8</sys_scope>
         <sys_update_name>sys_ux_app_d490da938319d610b68c9640ceaad3ee</sys_update_name>
         <sys_updated_by>matt@pamtconsulting.com</sys_updated_by>
-        <sys_updated_on>2024-11-24 20:54:54</sys_updated_on>
+        <sys_updated_on>2024-11-26 18:35:24</sys_updated_on>
         <theme display_value="Drama Theme">144e729383d9d610b68c9640ceaad339</theme>
         <user_preference_namespace/>
     </sys_ux_app>
